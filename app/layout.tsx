@@ -3,6 +3,7 @@ import "@fontsource-variable/archivo";
 import "@fontsource-variable/inter";
 import "./globals.css";
 import Wantam from "./Wantam";
+import { Analytics } from "@vercel/analytics/next";
 export const metadata: Metadata = {
   title: "Nairobbery: Kaa rada usioshwe.",
   description: "Practical Nairobi survival guides: traffic, fare, money, scams, emergencies na maisha ya tao.",
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </header>
         <main id="main">{children}</main>
+      <Analytics />
       </body>
     </html>
   );
