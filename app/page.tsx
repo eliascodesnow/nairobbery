@@ -11,7 +11,7 @@ export default function Home() {
         <div className="wrap">
           <p className="wordmark"><img src="/icon.png" alt="" width="56" height="56" />NAIROBBERY</p>
           <h1>KAA RADA USIOSHWE.</h1>
-          <p className="lede">Traffic imejam? Fare imepanda? Umeona deal inakaa too good kuwa true? Hapa ndio unapata info. Practical guides za kusurvive Nairobi, bila story mingi.</p>
+          <p className="lede">Tao kuna jam? Fare imepanda? Umeona deal inakaa too good kuwa true? Hapa ndio unapata info. Practical guides za kusurvive Nairobi, bila story mingi.</p>
           <a className="btn" href="#rada">PATA RADA</a>
           <Search items={searchIndex} />
         </div>
@@ -20,7 +20,7 @@ export default function Home() {
       <div className="wrap stack">
         <section className="panel sos" id="emergency" aria-labelledby="h-sos">
           <h2 id="h-sos">Ni emergency? Achana na story mingi.</h2>
-          <p>Pata safe location kwanza, alafu piga. Tap a number to call.</p>
+          <p>Pata place iko, alafu piga. Tap a number to call.</p>
           <ul className="lines">
             {emergency.map((e) => (
               <li key={e.num}><a href={`tel:${e.num}`}><strong>{e.num}</strong><span>{e.label}</span><em>{e.note}</em></a></li>
