@@ -1,6 +1,6 @@
 # Nairobbery
 
-Kaa rada usioshwe. Nairobi survival guides: traffic, fare, money, scams, emergencies.
+Kaa rada usioshwe. Single-page Nairobi survival guide: emergency lines, phone snatching, mugging, scams, unsafe streets, fares.
 
 ## Run
 ```

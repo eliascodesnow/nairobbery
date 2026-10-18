@@ -1,113 +1,129 @@
-export type Status = "verified" | "estimated" | "community" | "outdated" | "needs-review";
-export const STATUS_LABEL: Record<Status, string> = {
-  verified: "Verified", estimated: "Estimated", community: "Community report",
-  outdated: "Outdated", "needs-review": "Draft: needs source check",
-};
-export type Source = { label: string; url: string };
-export type Section = { heading: string; body?: string[]; steps?: string[] };
-export type Guide = {
-  slug: string; title: string; kicker: string; summary: string; category: "safety" | "scams" | "money";
-  aliases: string[]; sections: Section[]; sources: Source[];
-  status: Status; lastVerified: string | null; reviewBy: string; related: string[];
-};
+export type Item = { id: string; title: string; hook: string; how?: string[]; do: string[]; dont?: string[]; kw: string };
+export type Block = { id: string; title: string; line: string; items: Item[]; links?: { label: string; href: string; note: string }[]; open?: boolean };
 
-export const guides: Guide[] = [
+export const emergency = [
+  { num: "999", label: "Police and all emergencies", note: "National emergency line" },
+  { num: "112", label: "Emergency from any phone", note: "GSM emergency number" },
+  { num: "1199", label: "Kenya Red Cross", note: "Toll-free, ambulance and disaster support" },
+  { num: "1195", label: "Gender violence help", note: "National GBV helpline" },
+  { num: "116", label: "Child helpline", note: "Childline Kenya" },
+  { num: "333", label: "Report a scam SMS", note: "Forward the message, Safaricom" },
+];
+
+export const blocks: Block[] = [
   {
-    slug: "phone-stolen", title: "Simu imeibiwa: do this, in this order", kicker: "Nimeibiwa",
-    summary: "Pole. Phone ni vitu, wewe ni muhimu zaidi. Ukiwa safe, block SIM, funga accounts, alafu report.",
-    category: "safety", status: "needs-review", lastVerified: null, reviewBy: "2026-12-01",
-    aliases: ["simu imeenda", "nimeibiwa simu", "phone stolen", "phone snatched", "simu imepotea", "lost phone", "block sim", "mpesa stolen phone", "imei"],
-    related: ["mpesa-wrong-send", "fake-job-offer"],
-    sections: [
-      { heading: "Kwanza: usalama", body: ["Usimfuate mwizi, usimkabili. Simu inanunuliwa tena; wewe hauwezi. Nenda mahali kuna watu na mwanga."] },
-      { heading: "Hatua", steps: [
-        "Piga customer care wa network yako kutoka simu ya rafiki au duka, uombe SIM i-blockiwe. Confirm namba sahihi kwenye tovuti ya network yako.",
-        "Replace SIM kwa shop ya network ukiwa na ID. Namba na M-Pesa zinarudi, SIM ya zamani inakufa.",
-        "Kutoka kifaa kingine, ingia Google au Apple account yako: lock au erase simu, na u-sign out sessions zote.",
-        "Badilisha passwords, ukianza na email yako. Email ndio ufunguo wa accounts zingine zote.",
-        "Angalia M-Pesa statement na bank app kwa transactions ambazo si zako. Wajulishe bank ikiwa cards ziko linked.",
-        "Report kwa police station upate OB number. Leta IMEI ikiwa unayo (iko kwenye box, receipt au Google/Apple account yako).",
-      ] },
-      { heading: "Epuka", body: ["Usitume pesa au code kwa mtu anayesema amepata simu yako. Hiyo ni mbinu ya kawaida ya kukuiba mara ya pili."] },
+    id: "phone", title: "Simu imenyakuliwa", line: "Phone snatching: where it happens, how to avoid it, and the first hour after.",
+    items: [
+      { id: "snatch-spots", title: "Where phones get snatched", kw: "phone snatched simu imeenda nimeibiwa matatu window stage footbridge traffic jam",
+        hook: "Most snatches are quick and planned. The thief wants the second you look away.",
+        how: ["Open matatu and bus windows next to the road","Jammed traffic and footbridges","Packed stages and pavements at rush hour","One person bumps or asks for directions while another grabs"],
+        do: ["Use your phone inside a shop or away from the kerb","Hold it with both hands, or keep it zipped when walking","Step back from the stage edge before you check it","Keep one earphone out in busy streets so you hear what is coming"],
+        dont: ["Do not stand at an open matatu window with your phone out","Do not chase a snatcher. Simu inanunuliwa, wewe huwezi."] },
+      { id: "phone-prep", title: "Set up before it happens", kw: "find my device sim pin imei backup lock mpesa pin",
+        hook: "Five minutes now saves a very bad week later.",
+        do: ["Turn on Find My Device (Android) or Find My iPhone","Set a SIM PIN and a strong screen lock","Keep your M-Pesa and bank PINs out of Notes and WhatsApp","Back up photos and contacts","Dial *#06# and save your IMEI somewhere that is not the phone","Know your email recovery details, email ndio ufunguo wa kila account"] },
+      { id: "phone-after", title: "Phone gone: first hour", kw: "block sim replace sim ob number report stolen phone m-pesa locked",
+        hook: "Pole. First get safe, then move fast.",
+        do: ["Get to a lit place with people. Do not follow the thief","From a friend's phone, call your network's customer care and ask them to block the SIM","Replace the SIM at a network shop with your ID","From another device, lock or erase the phone and sign out all sessions","Change passwords, starting with email, then banking and social","Check your M-Pesa and bank statements for anything you did not do","Report at a police station and get an OB number. Carry your IMEI"],
+        dont: ["Do not send money or codes to anyone who says they found your phone"] },
     ],
-    sources: [{ label: "Safaricom", url: "https://www.safaricom.co.ke" }, { label: "National Police Service", url: "https://www.nationalpolice.go.ke" }],
   },
   {
-    slug: "rental-deposit-scam", title: "Rental deposit scam: how it runs", kicker: "Hii ni scam?",
-    summary: "House nzuri, rent ya chini, na agent yuko 'out of town'. Pause kwanza kabla ya kutuma deposit.",
-    category: "scams", status: "needs-review", lastVerified: null, reviewBy: "2026-12-01",
-    aliases: ["rental scam", "house deposit", "agent deposit", "viewing fee", "booking fee", "nyumba scam", "deposit ya nyumba", "house hunting"],
-    related: ["mpesa-wrong-send", "fake-job-offer"],
-    sections: [
-      { heading: "Inavyoonekana", body: ["Picha za nyumba zinazovutia, rent chini ya soko, na mtu anayekuomba 'viewing fee' au 'booking fee' kabla ya kuona unit."] },
-      { heading: "Warning signs", steps: [
-        "Anakuomba pesa kabla ya kuona nyumba ana kwa ana.",
-        "Yuko nje ya mji na 'caretaker' atakupa keys baada ya kulipa.",
-        "Rent iko chini sana kuliko nyumba zinazofanana mtaani.",
-        "Pressure: 'kuna mtu mwingine anataka leo'.",
-        "Namba ya malipo ni ya mtu binafsi, hakuna agreement iliyoandikwa.",
-      ] },
-      { heading: "Safe next steps", steps: [
-        "Tembelea nyumba mwenyewe, na mtu mmoja akujue unaenda wapi.",
-        "Ongea na majirani au caretaker wa sasa kuthibitisha anayejitambulisha kama landlord.",
-        "Omba tenancy agreement iliyoandikwa kabla ya kulipa chochote.",
-        "Kama umeshalipa, hifadhi messages na M-Pesa receipt, alafu report police na Safaricom.",
-      ] },
+    id: "mugged", title: "Umeshikwa njiani", line: "Mugging: how to come out alive, and what to do right after.",
+    items: [
+      { id: "mugging-during", title: "If someone demands your things", kw: "mugged robbery mugging mwizi wizi attack knife",
+        hook: "Your life is worth more than the phone. Always.",
+        how: ["Usually two or more people, one talks and others close in","Dark lanes, shortcuts, outside bars, near ATMs and after payday","Sometimes a weapon is shown or hinted at"],
+        do: ["Stay calm, move slowly and keep your hands visible","Hand over what they ask for","Remember how many, clothes, and which way they ran","Carry a small decoy amount in an easy pocket and the rest elsewhere"],
+        dont: ["Do not resist, argue or chase","Do not volunteer your M-Pesa or bank PIN. If you are forced, comply first, then block everything at once"] },
+      { id: "mugging-after", title: "After a mugging", kw: "report ob number block cards mpesa medical shock after robbery",
+        hook: "The shaking afterwards is normal. Do these in order.",
+        do: ["Go to a lit place with people and call 999 or 112","Tell someone you trust where you are","Block your SIM and bank cards","Report to police and get an OB number","Get checked by a doctor even if you feel fine","Talk to someone. Hii si kitu ya kubeba peke yako"] },
+      { id: "date-spiking", title: "Meetups and spiked drinks", kw: "date tinder spiked drink meetup robbed drugged online date",
+        hook: "Some robberies start with a friendly hello online.",
+        how: ["A new contact insists on a private place or a taxi they arrange","Your drink is left alone or handed over by someone else","Sudden dizziness, then you wake up without your things"],
+        do: ["Meet in a busy public place first","Share your live location with a friend","Buy your own drinks and keep them in your hand","If you feel strange, tell staff and leave with someone you trust"] },
     ],
-    sources: [{ label: "Safaricom", url: "https://www.safaricom.co.ke" }, { label: "National Police Service", url: "https://www.nationalpolice.go.ke" }],
   },
   {
-    slug: "mpesa-wrong-send", title: "'Nimetuma pesa kimakosa': rudisha kwa nani?", kicker: "Hii ni scam?",
-    summary: "Mtu anakupigia akisema ametuma pesa kwa makosa na anakuomba umtumie. Angalia balance yako kwanza.",
-    category: "scams", status: "needs-review", lastVerified: null, reviewBy: "2026-12-01",
-    aliases: ["mpesa scam", "wrong number mpesa", "nimetuma kimakosa", "fuliza scam", "reversal", "fake mpesa message", "mpesa fraud", "tuma pesa kimakosa"],
-    related: ["phone-stolen", "fake-job-offer"],
-    sections: [
-      { heading: "Inavyoonekana", body: ["SMS inaonekana kama ya M-Pesa lakini imetoka kwa mtu, au simu ya haraka ikisema 'tafadhali nirudishie'. Mara nyingi hakuna pesa iliyoingia."] },
-      { heading: "Safe next steps", steps: [
-        "Usikimbilie. Angalia balance yako kwa M-Pesa menu au app, si kwa SMS iliyokuja.",
-        "Kama pesa imeingia kweli, usimtumie mtu. Mwambie aombe reversal kupitia Safaricom, na wewe usitume mwenyewe.",
-        "Forward SMS ya kutisha kwa 333 (free) ili Safaricom ichunguze. Confirm kwenye tovuti ya Safaricom kama bado inafanya kazi.",
-        "Usimpe mtu PIN, hata akijiita Safaricom. Hawakuulizi PIN.",
-      ] },
+    id: "scams", title: "Hii ni scam?", line: "Scam tactics that run in Nairobi every day, and how to pause them.",
+    items: [
+      { id: "fake-mpesa-sms", title: "Fake M-Pesa messages", kw: "fake mpesa message sms confirmed wrong number nimetuma kimakosa reversal send back",
+        hook: "Maandishi haya si mageni jijini, labda kwa mgeni jijini. Ila kwa wenyeji wa jiji, ni maandishi tuliyoyazoea!!",
+        how: ["A message that looks like M-Pesa arrives, then a call: 'nimetuma kimakosa, nirudishie'","The text comes from a normal number, or the wording is slightly off","The money never actually arrived"],
+        do: ["Check your balance in the M-Pesa menu or app, not from the SMS","If money really came in, ask them to request a reversal through Safaricom","Forward suspicious SMS to 333","Take a breath. Hakuna haraka ya pesa"],
+        dont: ["Do not send money back before checking your balance","Do not give your PIN to anyone, including 'Safaricom staff'"] },
+      { id: "sim-swap-calls", title: "Calls asking for PIN or code", kw: "otp pin call safaricom bank sim swap verification code fuliza limit",
+        hook: "Real banks and Safaricom do not ask for your PIN or OTP.",
+        how: ["Caller knows your name and says your account is blocked or your SIM expires","They push you to read out a code that just arrived","Goal: SIM swap or direct access to your money"],
+        do: ["Hang up and call the official number yourself","Report the number to your network and bank","If your SIM suddenly loses signal for no reason, check it immediately"],
+        dont: ["Do not read out any code, PIN or password"] },
+      { id: "rental-scam", title: "House and rental deposit scams", kw: "rental house deposit agent viewing fee booking fee keja nyumba landlord caretaker",
+        hook: "Hiyo deal inakaa suss? Pause kwanza. Usitume deposit juu mtu amekutext na profile picture ya suti.",
+        how: ["Great photos, rent far below the market, agent 'out of town'","A viewing fee or booking fee before you see the keja","Pressure: 'there is another client coming today'"],
+        do: ["View the house yourself and tell someone where you are going","Ask neighbours or the current caretaker if the landlord is real","Get a written tenancy agreement before you pay","Pay to a verifiable account, not a random number"],
+        dont: ["Do not pay anything before you have seen the unit"] },
+      { id: "fake-jobs", title: "Fake jobs and abroad offers", kw: "fake job kazi interview fee visa abroad ughaibuni recruitment training fee",
+        hook: "Real employers pay you. They do not charge you to start.",
+        how: ["Fees for interview, medical, training or uniform","Only WhatsApp and a Gmail address, no office you can visit","Big overseas salary and urgent deadlines"],
+        do: ["Find the company on its official site and call that number","Visit the office before paying or handing over documents","Check overseas agencies with the relevant government bodies"],
+        dont: ["Do not pay for a job, and do not send ID copies to strangers"] },
+      { id: "fake-police", title: "Fake police and 'chai' demands", kw: "fake police cop id check bribe chai arrest unmarked car plain clothes",
+        hook: "Not everyone who says 'police' is police.",
+        how: ["Plain clothes people stop you and demand to 'check' you","They push you into an unmarked car or a quiet corner","They ask for money to 'sort it out' on the spot"],
+        do: ["Ask for their ID and which station they are from","Stay in a public, well-lit place","Call 999 or 112 if something feels wrong","Tell a friend or family member where you are"],
+        dont: ["Do not enter an unmarked vehicle","Do not pay anyone on the street"] },
+      { id: "online-buying", title: "Online selling and buying", kw: "online marketplace facebook instagram deposit courier overpay buyer seller delivery scam jiji",
+        hook: "Ukinunua au kuuza mtandaoni, pesa na bidhaa zibadilishane pamoja.",
+        how: ["Seller wants a deposit or 'transport fee' before you see the item","Fake buyer 'overpays' and asks for the difference back","Fake courier or payment screenshot that is not real"],
+        do: ["Meet in a busy public place and inspect before paying","Check your own M-Pesa balance, never trust a screenshot","Search the seller's phone number and photos for reports"],
+        dont: ["Do not send a deposit to someone you have never met"] },
+      { id: "quick-money", title: "Quick money, double money, loans", kw: "double money investment chama pyramid crypto betting tipster loan app fee mkopo",
+        hook: "If it doubles your money in a week, it is your money doubling theirs.",
+        how: ["Investment or 'chama' promising fixed daily returns","Loan apps asking for a fee before disbursing","Tipsters selling 'sure' betting games"],
+        do: ["Check if the lender or platform is licensed by the relevant regulator","Read what the app can access on your phone before installing","Ask who pays the returns and where the money comes from"],
+        dont: ["Do not pay an upfront fee for a loan","Do not recruit your friends into something you do not understand"] },
+      { id: "street-tricks", title: "Street distractions", kw: "distraction spill dropped money stranger asks directions pickpocket crowd stage touts",
+        hook: "The aim is to make you look away for two seconds.",
+        how: ["Someone spills something on you or points at your clothes","A person 'drops' cash and a helper appears","Crowded stage or bus, hands in your pockets and bag"],
+        do: ["Keep your bag in front, zipped, and phone in a front pocket","Ignore strangers who touch you or crowd you, step away","Check your valuables only after you are in a safe spot"] },
     ],
-    sources: [{ label: "Safaricom", url: "https://www.safaricom.co.ke" }],
   },
   {
-    slug: "fake-job-offer", title: "Job offer inayotaka pesa kwanza", kicker: "Hii ni scam?",
-    summary: "Kazi ya kweli haikuombi pesa ya interview, training au uniform. Angalia kabla ya kulipa.",
-    category: "scams", status: "needs-review", lastVerified: null, reviewBy: "2026-12-01",
-    aliases: ["fake job", "job scam", "kazi scam", "recruitment fee", "interview fee", "kazi ughaibuni", "abroad job", "training fee"],
-    related: ["rental-deposit-scam", "mpesa-wrong-send"],
-    sections: [
-      { heading: "Warning signs", steps: [
-        "Anakuomba ada ya interview, medical, training au uniform kabla ya kuanza.",
-        "Mawasiliano ni WhatsApp na email ya Gmail, hakuna ofisi unayoweza kutembelea.",
-        "Mshahara ni mkubwa kuliko kazi ya aina hiyo, na wanataka ujibu haraka.",
-        "Kazi ya nje ya nchi bila agency inayoweza kuthibitishwa.",
-      ] },
-      { heading: "Safe next steps", steps: [
-        "Tafuta kampuni kwa tovuti yao rasmi na uwapigie kwa namba ya huko, si ile uliyopewa.",
-        "Tembelea ofisi kabla ya kutoa pesa au documents zako.",
-        "Kama ni kazi ya nje, thibitisha agency kupitia mamlaka husika za serikali.",
-      ] },
+    id: "streets", title: "Mtaa si salama?", line: "Unsafe streets, matatus, boda, night travel and crowds.",
+    items: [
+      { id: "night-moves", title: "Moving after dark", kw: "night walking unsafe street dark lane uber bolt shortcut after dark plan",
+        hook: "Plan the way home before you leave.",
+        do: ["Pre-book a ride or use a stage you know","Check the plate and driver before getting in, and share the trip","Wait for your ride inside a shop or petrol station","Avoid shortcuts through dark lanes, even when it saves ten minutes","If someone follows you, walk into a shop, hotel or petrol station and ask staff for help","Split your cash into two places"],
+        dont: ["Do not scroll your phone while walking in the dark"] },
+      { id: "matatu-boda", title: "Matatu, boda and unmarked cars", kw: "matatu boda nduthi pirate taxi unmarked car fare overcharge conductor route",
+        hook: "Jua stage yako, estimate fare na check route kabla ujipate upande ingine ya town.",
+        how: ["Unmarked cars offering a 'cheap lift'","Empty matatu or car that suddenly fills with 'passengers'","Fares doubling in rain or at night"],
+        do: ["Ask the fare before boarding","Pick busy, registered vehicles and note the plate","Share your trip with someone","Check routes and fares on Nishukishe before you move"],
+        dont: ["Do not get into a car where the driver and other passengers seem to know each other and you are the only one who does not"] },
+      { id: "crowds", title: "Crowds, protests and road closures", kw: "protest maandamano demonstration tear gas crowd road closure teargas riot",
+        hook: "Kama kuna shida mbele, geuka. Hakuna habari inastahili kuumia.",
+        do: ["Plan an alternative route before you leave","Keep a charged phone, ID and some cash","Move away from crowds, toward open and lit areas","Tear gas: move upwind, do not rub your eyes, rinse with clean water","Tell someone where you are","Do not spread unverified videos or rumours"],
+        dont: ["Do not go toward a crowd to film or check what is happening"] },
     ],
-    sources: [{ label: "National Police Service", url: "https://www.nationalpolice.go.ke" }],
+  },
+  {
+    id: "pesa", title: "Pesa na fare", line: "Budget and fare tools so you do not get surprised.",
+    items: [
+      { id: "fare-rules", title: "Do not get overcharged", kw: "fare nauli budget food chakula ksh expenses price transport cost pesa kidogo",
+        hook: "Budget ni tight? Tunaangalia fare, food na daily expenses bila kukudanganya ati KSh 100 inaweza solve kila kitu.",
+        do: ["Ask the fare before boarding and keep small change","Compare your route and fare on Nishukishe","Plan food and transport for the day before you leave home","Keep a small emergency amount that you do not touch"] },
+    ],
+    links: [
+      { label: "Nishukishe", href: "https://nishukishe.com", note: "Route and fare proposals" },
+      { label: "Ukonangapi", href: "https://ukonangapi.onrender.com", note: "Budget proposals" },
+      { label: "Pesacalc smart budget", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Budget calculator" },
+      { label: "Sasake", href: "https://www.sasake.co.ke/feed", note: "Emergency and city updates" },
+    ],
   },
 ];
 
-export type Resource = { title: string; hint: string; href: string; external?: boolean; keywords: string[] };
-export const resources: Resource[] = [
-  { title: "Niko Emergency", hint: "Hatua za kwanza na namba za dharura", href: "/emergency", keywords: ["emergency", "dharura", "accident", "ajali", "fire", "moto", "999", "112", "police", "ambulance", "mugged", "robbery"] },
-  { title: "Traffic Imenishika", hint: "Route na fare: nishukishe", href: "https://nishukishe.com", external: true, keywords: ["fare", "nauli", "matatu", "tao", "route", "stage", "rongai", "traffic", "jam", "bus", "directions", "transport"] },
-  { title: "Pesa Ni Kidogo", hint: "Smart budget calculator", href: "https://pesacalc.co.ke/calculators/smart-budget", external: true, keywords: ["budget", "pesa", "food", "chakula", "ksh", "rent", "expenses", "kidogo", "salary", "calculator"] },
-  { title: "Bei na budget: ukonangapi", hint: "Budget proposals", href: "https://ukonangapi.onrender.com", external: true, keywords: ["budget", "bei", "price", "cost", "food", "300", "day"] },
-  { title: "Sasake feed", hint: "Live updates za jiji", href: "https://www.sasake.co.ke/feed", external: true, keywords: ["road closures", "closure", "leo", "today", "news", "protest", "maandamano", "demonstration", "updates"] },
-];
-
-export const searchIndex = [
-  ...guides.map((g) => ({ title: g.title, hint: g.summary, href: `/guides/${g.slug}`, external: false, keywords: [g.title, g.summary, g.category, ...g.aliases] })),
-  ...resources.map((r) => ({ title: r.title, hint: r.hint, href: r.href, external: !!r.external, keywords: r.keywords })),
-].map((i) => ({ ...i, hay: i.keywords.join(" ").toLowerCase() }));
-
+export const searchIndex = blocks.flatMap((b) =>
+  b.items.map((i) => ({ blockId: b.id, id: i.id, title: i.title, hint: i.hook, hay: `${i.title} ${i.hook} ${i.kw}`.toLowerCase() }))
+);
 export type IndexItem = (typeof searchIndex)[number];

@@ -1,61 +1,57 @@
 import Search from "./Search";
-import { guides, resources, searchIndex, STATUS_LABEL } from "../lib/content";
+import { blocks, emergency, searchIndex } from "../lib/content";
 
-const tone = ["sos", "green", "orange", "ink", "line"];
-const extra = [
-  { title: "Hii Ni Scam?", hint: "Deals, M-Pesa, kazi na nyumba: angalia kabla ya kutuma", href: "/guides/mpesa-wrong-send" },
-  { title: "Nimeibiwa", hint: "Block SIM, secure accounts, report", href: "/guides/phone-stolen" },
-];
+const List = ({ title, items }: { title: string; items?: string[] }) =>
+  items?.length ? (<><h4>{title}</h4><ul>{items.map((t) => <li key={t}>{t}</li>)}</ul></>) : null;
 
 export default function Home() {
-  const board = [resources[0], resources[1], resources[2], ...extra.map((e) => ({ ...e, external: false }))];
   return (
     <>
       <section className="hero">
         <div className="wrap">
-          <p className="wordmark"><img src="/icon.png" alt="" width="44" height="44" />Nairobbery</p>
+          <p className="wordmark"><img src="/icon.png" alt="" width="56" height="56" />NAIROBBERY</p>
           <h1>KAA RADA USIOSHWE.</h1>
-          <p className="lede">Nairobi haina manual. From traffic na fare hadi scams, emergencies na maisha ya tao, pata info unahitaji kufanya move smart.</p>
-          <div className="actions">
-            <a className="btn primary" href="#rada">PATA RADA</a>
-            <a className="btn ghost" href="#leo">IKO NA NINI LEO?</a>
-          </div>
+          <p className="lede">Traffic imejam? Fare imepanda? Umeona deal inakaa too good kuwa true? Hapa ndio unapata info. Practical guides za kusurvive Nairobi, bila story mingi.</p>
+          <a className="btn" href="#rada">PATA RADA</a>
           <Search items={searchIndex} />
         </div>
       </section>
 
-      <section className="wrap block" aria-labelledby="h-help">
-        <h2 id="h-help">Unahitaji nini sasa hivi?</h2>
-        <ul className="board">
-          {board.map((b, i) => (
-            <li key={b.title} className={tone[i]}>
-              <a href={b.href} {...(b.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-                <strong>{b.title}</strong><span>{b.hint}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <div className="wrap stack">
+        <section className="panel sos" id="emergency" aria-labelledby="h-sos">
+          <h2 id="h-sos">Ni emergency? Achana na story mingi.</h2>
+          <p>Pata safe location kwanza, alafu piga. Tap a number to call.</p>
+          <ul className="lines">
+            {emergency.map((e) => (
+              <li key={e.num}><a href={`tel:${e.num}`}><strong>{e.num}</strong><span>{e.label}</span><em>{e.note}</em></a></li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="wrap block" id="leo" aria-labelledby="h-leo">
-        <h2 id="h-leo">Iko na nini leo?</h2>
-        <div className="empty-state">
-          <p>Hakuna alert iliyothibitishwa kwenye Nairobbery kwa sasa. Hatuweki habari za kubuni ili ukurasa uonekane busy.</p>
-          <p>Kwa updates za sasa hivi, angalia <a href="https://www.sasake.co.ke/feed" target="_blank" rel="noopener noreferrer">Sasake</a> au <a href="https://nishukishe.com" target="_blank" rel="noopener noreferrer">Nishukishe</a>. Kila alert tutakayochapisha itakuwa na location, chanzo, na saa ya verification.</p>
-        </div>
-      </section>
+        {blocks.map((b) => (
+          <details className="panel" id={`b-${b.id}`} key={b.id}>
+            <summary><span id={b.id}><h2>{b.title}</h2><small>{b.line}</small></span></summary>
+            {b.items.map((i) => (
+              <details className="item" id={`i-${i.id}`} key={i.id}>
+                <summary><h3>{i.title}</h3></summary>
+                <p className="hook">{i.hook}</p>
+                <List title="How it works" items={i.how} />
+                <List title="Do" items={i.do} />
+                <List title="Avoid" items={i.dont} />
+              </details>
+            ))}
+            {b.links && (
+              <ul className="tools">{b.links.map((l) => (
+                <li key={l.href}><a href={l.href} target="_blank" rel="noopener noreferrer"><strong>{l.label}</strong><span>{l.note}</span></a></li>
+              ))}</ul>
+            )}
+          </details>
+        ))}
+      </div>
 
-      <section className="wrap block" aria-labelledby="h-guides">
-        <h2 id="h-guides">Guides za kusolve shida</h2>
-        <ol className="guides">
-          {guides.map((g) => (
-            <li key={g.slug}>
-              <a href={`/guides/${g.slug}`}><h3>{g.title}</h3><p>{g.summary}</p></a>
-              <small>{STATUS_LABEL[g.status]}</small>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <footer className="foot wrap">
+        <p>Nairobbery does not dispatch help or track your location. In danger, call 999 or 112. Numbers and steps are general guidance and can change, so confirm on official sites. Found something wrong? <a href="https://github.com/eliascodesnow/nairobbery/issues/new" target="_blank" rel="noopener noreferrer">Tell us</a>.</p>
+      </footer>
     </>
   );
 }
