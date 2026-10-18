@@ -74,7 +74,7 @@ export const blocks: Block[] = [
         do: ["Ask for their ID and which station they are from","Stay in a public, well-lit place","Call 999 or 112 if something feels wrong","Tell a friend or family member where you are"],
         dont: ["Do not enter an unmarked vehicle","Do not pay anyone on the street"] },
       { id: "online-buying", title: "Online selling and buying", kw: "online marketplace facebook instagram deposit courier overpay buyer seller delivery scam jiji",
-        hook: "Ukinunua au kuuza mtandaoni, pesa na bidhaa zibadilishane pamoja.",
+        hook: "Ukinunua au kuuza online, pesa na bidhaa zibadilishane pamoja.",
         how: ["Seller wants a deposit or 'transport fee' before you see the item","Fake buyer 'overpays' and asks for the difference back","Fake courier or payment screenshot that is not real"],
         do: ["Meet in a busy public place and inspect before paying","Check your own M-Pesa balance, never trust a screenshot","Search the seller's phone number and photos for reports"],
         dont: ["Do not send a deposit to someone you have never met"] },
@@ -90,7 +90,7 @@ export const blocks: Block[] = [
     ],
   },
   {
-    id: "streets", title: "Avoid hizi streets - ukiblink unatokwa?", line: "Unsafe streets, matatus, boda, night travel and crowds.",
+    id: "streets", title: "Street safety", line: "Unsafe streets, matatus, boda, night travel and crowds.",
     items: [
       { id: "night-moves", title: "Moving after dark", kw: "night walking unsafe street dark lane uber bolt shortcut after dark plan",
         hook: "Plan the way home before you leave.",
@@ -108,7 +108,7 @@ export const blocks: Block[] = [
     ],
   },
   {
-    id: "avoid", title: "Avoid hizi streets...", line: "A safety proposal, not a crime ranking. Open for the note and the list.",
+    id: "avoid", title: "Avoid hizi streets...Ukiblink unatokwa", line: "A safety proposal, not a crime ranking. Open for the note and the list.",
     note: "Take this as a safety proposal, not a verdict. It comes from a few documented cases and common local caution, not from a verified ranking of current crime rates, and risk shifts with the exact spot and the time of day. Nairobi is generally a very safe city with wonderful people. Do not let a list scare you off the city. Just stay alert, wherever you are.",
     places: [
       { group: "Streets and stretches", list: [
@@ -151,7 +151,7 @@ export const blocks: Block[] = [
     ],
     links: [
       { label: "Nishukishe", host: "nishukishe.com", href: "https://nishukishe.com", note: "Route and fare proposals" },
-      { label: "Pesacalc smart budget", host: "pesacalc.co.ke", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Budget calculator" },
+      { label: "Pesacalc smart budget", host: "pesacalc.co.ke", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Plan budet yako monthly" },
       { label: "Sasake", host: "sasake.co.ke", href: "https://www.sasake.co.ke/feed", note: "Emergency and city updates" },
     ],
   },
