@@ -3,10 +3,12 @@ import "@fontsource-variable/archivo";
 import "@fontsource-variable/inter";
 import "./globals.css";
 import Wantam from "./Wantam";
-
 export const metadata: Metadata = {
   title: "Nairobbery: Kaa rada usioshwe.",
   description: "Practical Nairobi survival guides: traffic, fare, money, scams, emergencies na maisha ya tao.",
+  other: {
+    disclaimer: "Maandishi haya si mageni jijini, labda kwa mgeni jijini. Ila kwa wenyeji wa jiji, ni maandishi tuliyoyazoea",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
