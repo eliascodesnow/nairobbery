@@ -12,7 +12,7 @@ export const emergency = [
 
 export const blocks: Block[] = [
   {
-    id: "phone", title: "Simu imenyakuliwa", line: "Phone snatching: where it happens, how to avoid it, and the first hour after.",
+    id: "phone", title: "Simu imetokwa", line: "Phone snatching: where it happens, how to avoid it, and the first hour after.",
     items: [
       { id: "snatch-spots", title: "Where phones get snatched", kw: "phone snatched simu imeenda nimeibiwa matatu window stage footbridge traffic jam",
         hook: "Most snatches are quick and planned. The thief wants the second you look away.",
@@ -29,7 +29,7 @@ export const blocks: Block[] = [
     ],
   },
   {
-    id: "mugged", title: "Umeshikwa njiani", line: "Mugging: how to come out alive, and what to do right after.",
+    id: "mugged", title: "Umepigwa ngeta", line: "Mugging: how to come out alive, and what to do right after.",
     items: [
       { id: "mugging-during", title: "If someone demands your things", kw: "mugged robbery mugging mwizi wizi attack knife",
         hook: "Your life is worth more than the phone. Always.",
@@ -46,7 +46,7 @@ export const blocks: Block[] = [
     ],
   },
   {
-    id: "scams", title: "Hii ni scam?", line: "Scam tactics that run in Nairobi every day, and how to pause them.",
+    id: "scams", title: "Sharp bois?", line: "Scam tactics that run in Nairobi every day, and how to pause them.",
     items: [
       { id: "fake-mpesa-sms", title: "Fake M-Pesa messages", kw: "fake mpesa message sms confirmed wrong number nimetuma kimakosa reversal send back",
         hook: "Maandishi haya si mageni jijini, labda kwa mgeni jijini. Ila kwa wenyeji wa jiji, ni maandishi tuliyoyazoea!!",
@@ -68,7 +68,7 @@ export const blocks: Block[] = [
         how: ["Fees for interview, medical, training or uniform","Only WhatsApp and a Gmail address, no office you can visit","Big overseas salary and urgent deadlines"],
         do: ["Find the company on its official site and call that number","Visit the office before paying or handing over documents","Check overseas agencies with the relevant government bodies"],
         dont: ["Do not pay for a job, and do not send ID copies to strangers"] },
-      { id: "fake-police", title: "Fake police and 'chai' demands", kw: "fake police cop id check bribe chai arrest unmarked car plain clothes",
+      { id: "fake-police", title: "Fake police and bribe demands", kw: "fake police cop id check bribe chai arrest unmarked car plain clothes",
         hook: "Not everyone who says 'police' is police.",
         how: ["Plain clothes people stop you and demand to 'check' you","They push you into an unmarked car or a quiet corner","They ask for money to 'sort it out' on the spot"],
         do: ["Ask for their ID and which station they are from","Stay in a public, well-lit place","Call 999 or 112 if something feels wrong","Tell a friend or family member where you are"],
@@ -90,21 +90,21 @@ export const blocks: Block[] = [
     ],
   },
   {
-    id: "streets", title: "Mtaa si salama?", line: "Unsafe streets, matatus, boda, night travel and crowds.",
+    id: "streets", title: "Avoid hizi streets - ukiblink unatokwa?", line: "Unsafe streets, matatus, boda, night travel and crowds.",
     items: [
       { id: "night-moves", title: "Moving after dark", kw: "night walking unsafe street dark lane uber bolt shortcut after dark plan",
         hook: "Plan the way home before you leave.",
         do: ["Pre-book a ride or use a stage you know","Check the plate and driver before getting in, and share the trip","Wait for your ride inside a shop or petrol station","Avoid shortcuts through dark lanes, even when it saves ten minutes","If someone follows you, walk into a shop, hotel or petrol station and ask staff for help","Split your cash into two places"],
         dont: ["Do not scroll your phone while walking in the dark"] },
       { id: "matatu-boda", title: "Matatu, boda and unmarked cars", kw: "matatu boda nduthi pirate taxi unmarked car fare overcharge conductor route",
-        hook: "Jua stage yako, estimate fare na check route kabla ujipate upande ingine ya town.",
+        hook: "Jua stage yako, estimate fare alafu ucheck routes kabla ujipate uko Waiyaki Way ukienda Thika.",
         how: ["Unmarked cars offering a 'cheap lift'","Empty matatu or car that suddenly fills with 'passengers'","Fares doubling in rain or at night"],
         do: ["Ask the fare before boarding","Pick busy, registered vehicles and note the plate","Share your trip with someone","Check routes and fares on Nishukishe before you move"],
         dont: ["Do not get into a car where the driver and other passengers seem to know each other and you are the only one who does not"] },
       { id: "crowds", title: "Crowds, protests and road closures", kw: "protest maandamano demonstration tear gas crowd road closure teargas riot",
-        hook: "Kama kuna shida mbele, geuka. Hakuna habari inastahili kuumia.",
-        do: ["Plan an alternative route before you leave","Keep a charged phone, ID and some cash","Move away from crowds, toward open and lit areas","Tear gas: move upwind, do not rub your eyes, rinse with clean water","Tell someone where you are","Do not spread unverified videos or rumours"],
-        dont: ["Do not go toward a crowd to film or check what is happening"] },
+        hook: "Teusday! Tunarudi uwanjani... maandamano?",
+        do: ["Plan an alternative route before you leave","Keep a charged phone, ID and some cash","Move away from crowds, toward open and lit areas"," Tear gas? Tafuta colgate weka karibu na macho","Tear gas: move upwind, do not rub your eyes, rinse with clean water","Tell someone where you are","Do not spread unverified videos or rumours"],
+        dont: ["Do not go toward a crowd to film or check what is happening only record in an open place"] },
     ],
   },
   {
@@ -116,7 +116,6 @@ export const blocks: Block[] = [
     ],
     links: [
       { label: "Nishukishe", href: "https://nishukishe.com", note: "Route and fare proposals" },
-      { label: "Ukonangapi", href: "https://ukonangapi.onrender.com", note: "Budget proposals" },
       { label: "Pesacalc smart budget", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Budget calculator" },
       { label: "Sasake", href: "https://www.sasake.co.ke/feed", note: "Emergency and city updates" },
     ],
