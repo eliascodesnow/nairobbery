@@ -41,3 +41,10 @@ h4{font:800 .95rem var(--display);margin:12px 0 4px;color:var(--orange)}.item ul
 .foot{padding-top:28px;padding-bottom:36px;font-size:.92rem;max-width:920px}.foot p{max-width:44rem}
 @media(max-width:640px){.top{flex-direction:column;align-items:flex-start}.top nav{justify-content:flex-start}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.note{margin:14px 0 4px;padding:12px 14px;border-left:4px solid var(--orange);background:rgba(16,18,16,.5)}
+.group{margin-top:14px}.gnote{margin:2px 0 8px;font-size:.92rem;opacity:.92}
+.places{list-style:none;margin:0;padding:0;display:grid;gap:6px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.places li{padding:8px 10px;border:1px solid var(--line)}.places strong{display:block}.places span{font-size:.9rem;opacity:.92}
+.tools a{border-left:4px solid var(--orange);background:rgba(255,252,246,.08)}.tools strong{font:800 1.02rem var(--display)}
+.tools strong i{font-style:normal;color:var(--orange)}.tools code{display:block;margin-top:2px;font:600 .85rem var(--body);color:var(--orange);text-decoration:underline;text-underline-offset:3px}
+.wantam{position:fixed;z-index:50;pointer-events:none;user-select:none;-webkit-user-select:none;padding:10px 18px;background:var(--orange);color:var(--ink);font:900 clamp(1.4rem,6vw,2.4rem)/1 var(--display);border:3px solid var(--ink);max-width:90vw;white-space:nowrap}

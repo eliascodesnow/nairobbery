@@ -26,7 +26,7 @@ export default function Search({ items }: { items: IndexItem[] }) {
   const go = (e: React.MouseEvent, blockId: string, id: string) => {
     e.preventDefault();
     (document.getElementById(`b-${blockId}`) as HTMLDetailsElement | null)?.setAttribute("open", "");
-    const el = document.getElementById(`i-${id}`) as HTMLDetailsElement | null;
+    const el = (document.getElementById(`i-${id}`) ?? document.getElementById(id)) as HTMLElement | null;
     el?.setAttribute("open", "");
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
@@ -40,7 +40,7 @@ export default function Search({ items }: { items: IndexItem[] }) {
         {q.trim() && !results.length && <p className="empty">Hakuna rada kwa &ldquo;{q}&rdquo;. Jaribu neno lingine, au piga 999 ikiwa ni emergency.</p>}
         {results.length > 0 && (
           <ul>{results.map((r) => (
-            <li key={r.id}><a href={`#i-${r.id}`} onClick={(e) => go(e, r.blockId, r.id)}><strong>{r.title}</strong><span>{r.hint}</span></a></li>
+            <li key={r.id}><a href={`#${r.id}`} onClick={(e) => go(e, r.blockId, r.id)}><strong>{r.title}</strong><span>{r.hint}</span></a></li>
           ))}</ul>
         )}
       </div>

@@ -1,5 +1,5 @@
 export type Item = { id: string; title: string; hook: string; how?: string[]; do: string[]; dont?: string[]; kw: string };
-export type Block = { id: string; title: string; line: string; items: Item[]; links?: { label: string; href: string; note: string }[]; open?: boolean };
+export type Block = { id: string; title: string; line: string; items: Item[]; links?: { label: string; href: string; host: string; note: string }[]; note?: string; places?: { group: string; note?: string; list: { slug: string; name: string; risk: string }[] }[] };
 
 export const emergency = [
   { num: "999", label: "Police and all emergencies", note: "National emergency line" },
@@ -108,6 +108,41 @@ export const blocks: Block[] = [
     ],
   },
   {
+    id: "avoid", title: "Avoid hizi streets...", line: "A safety proposal, not a crime ranking. Open for the note and the list.",
+    note: "Take this as a safety proposal, not a verdict. It comes from a few documented cases and common local caution, not from a verified ranking of current crime rates, and risk shifts with the exact spot and the time of day. Nairobi is generally a very safe city with wonderful people. Do not let a list scare you off the city. Just stay alert, wherever you are.",
+    places: [
+      { group: "Streets and stretches", list: [
+        { slug: "tom-mboya-street", name: "Tom Mboya Street", risk: "Phone snatching, pickpocketing, mugging" },
+        { slug: "river-road", name: "River Road", risk: "Street robbery, phone theft, mugging" },
+        { slug: "accra-road", name: "Accra Road", risk: "Mugging, pickpocketing, opportunistic theft" },
+        { slug: "latema-road", name: "Latema Road", risk: "Daylight mugging, phone theft, street robbery" },
+        { slug: "kirinyaga-road", name: "Kirinyaga Road", risk: "Mugging, robbery, theft in crowded areas" },
+        { slug: "luthuli-avenue", name: "Luthuli Avenue", risk: "Phone snatching, mugging, theft around commercial premises" },
+        { slug: "ronald-ngala-street", name: "Ronald Ngala Street", risk: "Pickpocketing, phone theft, robbery around busy transport areas" },
+        { slug: "jogoo-road-mbotela-stretch", name: "Jogoo Road, Mbotela stretch", risk: "Night-time mugging, robbery in poorly lit sections" },
+        { slug: "muthurwa-market-and-bus-station", name: "Muthurwa Market and Bus Station", risk: "Pickpocketing, phone theft, street robbery" },
+        { slug: "koja-street", name: "Koja Street", risk: "Mugging, phone snatching, theft" },
+        { slug: "murang-a-road-around-desai-junction", name: "Murang'a Road, around Desai junction", risk: "Night-time robbery, mugging" },
+        { slug: "haile-selassie-avenue", name: "Haile Selassie Avenue", risk: "Phone theft, mugging on quieter stretches" },
+        { slug: "kipande-road", name: "Kipande Road", risk: "Mugging and robbery around isolated sections, especially after dark" }
+      ] },
+      { group: "Neighbourhoods", note: "Most people who live in these areas go about ordinary, safe lives. The caution is about particular spots and hours, and it should never be pinned on every street or every resident.", list: [
+        { slug: "mathare", name: "Mathare", risk: "Robbery, violent assaults, gang-related crime in some areas" },
+        { slug: "kayole", name: "Kayole", risk: "Armed robbery, mugging, violent crime in some areas" },
+        { slug: "dandora", name: "Dandora", risk: "Robbery, violent assault, gang-related crime in some areas" },
+        { slug: "kariobangi", name: "Kariobangi", risk: "Robbery, violent crime in some areas" },
+        { slug: "mukuru", name: "Mukuru", risk: "Robbery, assault, insecurity in some areas" },
+        { slug: "eastleigh", name: "Eastleigh", risk: "Phone snatching, robbery, occasional violent crime" },
+        { slug: "kibera", name: "Kibera", risk: "Mugging, robbery, opportunistic theft in some areas" }
+      ] },
+    ],
+    items: [
+      { id: "must-go", title: "If you must pass through", kw: "avoid streets must go cbd safe pass daylight plan",
+        hook: "Sometimes the shortest route to your work or your stage is through one of these. Go smart.",
+        do: ["Go in daylight and keep to the busy side","Keep your phone away and your bag in front","Walk with purpose, and know your exit before you enter","Do not carry more cash than the trip needs","Ask a local or a shopkeeper if a stretch feels off","After dark, book a ride to the door or go round"] },
+    ],
+  },
+  {
     id: "pesa", title: "Pesa na fare", line: "Budget and fare tools so you do not get surprised.",
     items: [
       { id: "fare-rules", title: "Do not get overcharged", kw: "fare nauli budget food chakula ksh expenses price transport cost pesa kidogo",
@@ -115,14 +150,15 @@ export const blocks: Block[] = [
         do: ["Ask the fare before boarding and keep small change","Compare your route and fare on Nishukishe","Plan food and transport for the day before you leave home","Keep a small emergency amount that you do not touch"] },
     ],
     links: [
-      { label: "Nishukishe", href: "https://nishukishe.com", note: "Route and fare proposals" },
-      { label: "Pesacalc smart budget", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Budget calculator" },
-      { label: "Sasake", href: "https://www.sasake.co.ke/feed", note: "Emergency and city updates" },
+      { label: "Nishukishe", host: "nishukishe.com", href: "https://nishukishe.com", note: "Route and fare proposals" },
+      { label: "Pesacalc smart budget", host: "pesacalc.co.ke", href: "https://pesacalc.co.ke/calculators/smart-budget", note: "Budget calculator" },
+      { label: "Sasake", host: "sasake.co.ke", href: "https://www.sasake.co.ke/feed", note: "Emergency and city updates" },
     ],
   },
 ];
 
-export const searchIndex = blocks.flatMap((b) =>
-  b.items.map((i) => ({ blockId: b.id, id: i.id, title: i.title, hint: i.hook, hay: `${i.title} ${i.hook} ${i.kw}`.toLowerCase() }))
-);
+export const searchIndex = blocks.flatMap((b) => [
+  ...b.items.map((i) => ({ blockId: b.id, id: i.id, title: i.title, hint: i.hook, hay: `${i.title} ${i.hook} ${i.kw}`.toLowerCase() })),
+  ...(b.places ?? []).flatMap((g) => g.list.map((p) => ({ blockId: b.id, id: `p-${p.slug}`, title: p.name, hint: p.risk, hay: `${p.name} ${p.risk} avoid streets hizi unsafe`.toLowerCase() }))),
+]);
 export type IndexItem = (typeof searchIndex)[number];

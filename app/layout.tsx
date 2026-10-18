@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@fontsource-variable/archivo";
 import "@fontsource-variable/inter";
 import "./globals.css";
+import Wantam from "./Wantam";
 
 export const metadata: Metadata = {
   title: "Nairobbery: Kaa rada usioshwe.",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <div className="bg" aria-hidden="true" />
+        <Wantam />
         <a className="skip" href="#main">Skip to content</a>
         <header className="top">
           <a className="brand" href="#"><img src="/icon.png" alt="" width="32" height="32" />NAIROBBERY</a>

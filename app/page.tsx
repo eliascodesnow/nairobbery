@@ -31,6 +31,16 @@ export default function Home() {
         {blocks.map((b) => (
           <details className="panel" id={`b-${b.id}`} key={b.id}>
             <summary><span id={b.id}><h2>{b.title}</h2><small>{b.line}</small></span></summary>
+            {b.note && <p className="note">{b.note}</p>}
+            {b.places?.map((g) => (
+              <div key={g.group} className="group">
+                <h4>{g.group}</h4>
+                {g.note && <p className="gnote">{g.note}</p>}
+                <ul className="places">{g.list.map((p) => (
+                  <li key={p.slug} id={`p-${p.slug}`}><strong>{p.name}</strong><span>{p.risk}</span></li>
+                ))}</ul>
+              </div>
+            ))}
             {b.items.map((i) => (
               <details className="item" id={`i-${i.id}`} key={i.id}>
                 <summary><h3>{i.title}</h3></summary>
@@ -42,7 +52,7 @@ export default function Home() {
             ))}
             {b.links && (
               <ul className="tools">{b.links.map((l) => (
-                <li key={l.href}><a href={l.href} target="_blank" rel="noopener noreferrer"><strong>{l.label}</strong><span>{l.note}</span></a></li>
+                <li key={l.href}><a href={l.href} target="_blank" rel="noopener noreferrer"><strong>{l.label}<i aria-hidden="true"> ↗</i></strong><span>{l.note}</span><code>{l.host}</code></a></li>
               ))}</ul>
             )}
           </details>
