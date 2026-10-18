@@ -14,6 +14,9 @@ export default function Home() {
           <p className="lede">Tao kuna jam? Fare imepanda? Umeona deal inakaa too good kuwa true? Hapa ndio unapata info. Practical guides za kusurvive Nairobi, bila story mingi.</p>
           <a className="btn" href="#rada">PATA RADA</a>
           <Search items={searchIndex} />
+          <blockquote className="quote">
+            &ldquo;Maandishi haya si mageni jijini, labda kwa mgeni jijini. Ila kwa wenyeji wa jiji, ni maandishi tuliyoyazoea&rdquo;
+          </blockquote>
         </div>
       </section>
 
